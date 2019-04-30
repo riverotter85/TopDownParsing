@@ -16,7 +16,10 @@ let explode s =
 
 (* TODO: Call explode with your name as input.  If you are working in a team, call
    explode once for each team member. *)
-   
+let name_list = explode "Logan Davis";;
+List.iter (Printf.printf "%c") name_list;; (* NOTE: Remove!!! *)
+Printf.printf "\n";; (* Remove!!! *)
+
 (* converts from list of chars to String *)
 (* single char conversion from
    https://stackoverflow.com/questions/20441263/convert-char-to-string-in-ocaml/20463186 *)
@@ -26,6 +29,8 @@ let rec to_one_string char_list =
     | h::t -> (String.make 1 h)^(to_one_string t);; (* ^ does string concatenation *)
 
 (* TODO: Call to_one_string with the result of your call(s) to explode. *)
+let name_string = to_one_string name_list;;
+Printf.printf "%s\n" name_string;; (* NOTE: Remove!!! *)
 	
 (* tail-recursive linear search in a list: -1 returned if item not found, 0-based otherwise *)
 let position x the_list = 
@@ -37,7 +42,9 @@ let position x the_list =
 
 (* TODO: Call position with the last character of the name(s) and the result(s) of your
    call(s) to explode. *)
-	
+let last_position = position 's' name_list;;
+Printf.printf "Position of last character in name (0-based): %d\n" last_position;;
+
 (* membership function *)
 (* let rec belongs_to x list =
  *	match list with
