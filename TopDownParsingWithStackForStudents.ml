@@ -257,63 +257,63 @@ let rec breadth_first_parse p rules nonterminals explored stack =
                 match leftmost with
                   | [left] ->
                       if (is_prefix leftmost p_as_list) then
-                        let next_level = replace_LHS_by_RHS before leftmost after rules
+                        let next_level = replace_LHS_by_RHS before left after rules
                         in breadth_first_parse p rules nonterminals (explored@[sf_string]) (push_all next_level tail)
                       else
                         breadth_first_parse p rules nonterminals (explored@[sf_string]) tail
                   | [] -> breadth_first_parse p rules nonterminals (explored@[sf_string]) tail;;
 
 (* TODO: Uncomment the below code for testing when you have finished breadth_first_parse. *)
-(* let parse p (productions,nonterminals,start_symbol) =
+let parse p (productions,nonterminals,start_symbol) =
   let (result, explored, stack) =
     breadth_first_parse p productions nonterminals [] [[start_symbol]] in
   (* empty string - Unicode for lambda *)
   (* https://stackoverflow.com/questions/33777404/how-to-create-the-lambda-char-in-ocaml *)
   let p_or_lambda = if p="" then "\xCE\xBB" else p in
-    (p_or_lambda^" is "^result, explored, List.map to_one_string stack);; *)
+    (p_or_lambda^" is "^result, explored, List.map to_one_string stack);;
 
-(* let parse_yes_no_only p grammar =
-  let (result, _, _) = (parse p grammar) in result;; *)
+let parse_yes_no_only p grammar =
+  let (result, _, _) = (parse p grammar) in result;;
 
-(* let num_productions_explored p grammar = 
+let num_productions_explored p grammar = 
   let (_,explored,_) = (parse p grammar) in
-    list_length explored;; *)
+    list_length explored;;
 
-(* parse "" anbn_grammar;; *)
+parse "" anbn_grammar;;
 
-(* parse_yes_no_only "" anbn_grammar;; *)
+parse_yes_no_only "" anbn_grammar;;
 
-(* num_productions_explored "" anbn_grammar;; *)
+num_productions_explored "" anbn_grammar;;
 
-(* parse "ab" anbn_grammar;; *)
+parse "ab" anbn_grammar;;
 
-(* parse_yes_no_only "ab" anbn_grammar;; *)
+parse_yes_no_only "ab" anbn_grammar;;
 
-(* num_productions_explored "ab" anbn_grammar;; *)
+num_productions_explored "ab" anbn_grammar;;
 
-(* parse "aab" anbn_grammar;; *)
+parse "aab" anbn_grammar;;
 
-(* parse_yes_no_only "aab" anbn_grammar;; *)
+parse_yes_no_only "aab" anbn_grammar;;
 
-(* num_productions_explored "aab" anbn_grammar;; *)
+num_productions_explored "aab" anbn_grammar;;
 
-(* parse "aaaaaabbbbbb" anbn_grammar;; *)
+parse "aaaaaabbbbbb" anbn_grammar;;
 
-(* parse_yes_no_only "aaaaaabbbbbb" anbn_grammar;; *)
+parse_yes_no_only "aaaaaabbbbbb" anbn_grammar;;
 
-(* num_productions_explored "aaaaaabbbbbb" anbn_grammar;; *)
+num_productions_explored "aaaaaabbbbbb" anbn_grammar;;
 
-(* parse "aaaaaaabbbbbb" anbn_grammar;; *)
+parse "aaaaaaabbbbbb" anbn_grammar;;
 
-(* parse_yes_no_only "aaaaaaabbbbbb" anbn_grammar;; *)
+parse_yes_no_only "aaaaaaabbbbbb" anbn_grammar;;
 
-(* num_productions_explored "aaaaaaabbbbbb" anbn_grammar;; *)
+num_productions_explored "aaaaaaabbbbbb" anbn_grammar;;
 
-(* parse "aaaaaaabbbbbbbcccddd" anbncmdm_grammar;; *)
+parse "aaaaaaabbbbbbbcccddd" anbncmdm_grammar;;
 
-(* parse_yes_no_only "aaaaaaabbbbbbbcccddd" anbncmdm_grammar;; *)
+parse_yes_no_only "aaaaaaabbbbbbbcccddd" anbncmdm_grammar;;
 
-(* num_productions_explored "aaaaaaabbbbbbbcccddd" anbncmdm_grammar;; *)
+num_productions_explored "aaaaaaabbbbbbbcccddd" anbncmdm_grammar;;
 
 (* TODO: the last one. Yay!!!!!
    Develop a grammar that generates {f^i m^(2j) e^(3k)| i, j, k >=0},
