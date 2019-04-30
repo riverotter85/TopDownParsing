@@ -230,17 +230,17 @@ let rec splice_all all_list before after =
 (* This function is used to create new sentential forms uwv from uAv
    for all grammar rules of the A -> w for a given leftmost nonterminal.
    TODO: Uncomment when collect_all_RHS is completed. *)	
-(* let replace_LHS_by_RHS before leftmost after rules = 
-  splice_all (collect_all_RHS leftmost rules) before after;; *)
+let replace_LHS_by_RHS before leftmost after rules = 
+  splice_all (collect_all_RHS leftmost rules) before after;;
 
 (* test case for replace_LHS_by_RHS (and splice_all indirectly).
    TODO: Uncomment when collect_all_RHS is completed. *)
-(* let replaced = replace_LHS_by_RHS my_before my_leftmost my_after anbn_productions;; *)
+let replaced = replace_LHS_by_RHS my_before my_leftmost my_after anbn_productions;;
 
 (* Note: @ does list concatenation *)
 (* TODO: Complete (and uncomment) the below recursive function which implements the
    breadth-first top-down parsing algorithm discussed in class. *)
-(* let rec breadth_first_parse p rules nonterminals explored stack =
+let rec breadth_first_parse p rules nonterminals explored stack =
   let p_as_list = (explode p) in 
     match stack with
       | [] -> ("invalid", explored, [])
@@ -250,18 +250,18 @@ let rec splice_all all_list before after =
               ("valid", explored, stack)
             else
             if sentential_form = [] then
-              breadth_first_parse ??? ??? ??? (explored@[""]) ???
+              breadth_first_parse p rules nonterminals (explored@[""]) tail
             else
-              let (???,???,???) =
+              let (before, leftmost, after) =
                 (split [] sentential_form nonterminals) in
                 match leftmost with
                   | [left] ->
-                      if (is_prefix ??? p_as_list) then
-                        let next_level = replace_LHS_by_RHS ??? ??? ??? ???
-                        in breadth_first_parse ??? ??? ??? (explored@[sf_string]) (push_all next_level ???)
+                      if (is_prefix leftmost p_as_list) then
+                        let next_level = replace_LHS_by_RHS before leftmost after rules
+                        in breadth_first_parse p rules nonterminals (explored@[sf_string]) (push_all next_level tail)
                       else
-                        breadth_first_parse ??? ??? ??? (???@[???]) ???
-                  | [] -> breadth_first_parse ??? ??? ??? (???@[???]) ???;; *)
+                        breadth_first_parse p rules nonterminals (explored@[sf_string]) tail
+                  | [] -> breadth_first_parse p rules nonterminals (explored@[sf_string]) tail;;
 
 (* TODO: Uncomment the below code for testing when you have finished breadth_first_parse. *)
 (* let parse p (productions,nonterminals,start_symbol) =
