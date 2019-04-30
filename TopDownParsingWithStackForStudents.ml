@@ -112,11 +112,11 @@ let anbncmdm_grammar = (anbncmdm_productions, ['S';'T';'U'], 'S');;
 let rec collect_all_RHS lhs productions =
   match productions with
     | [] -> [] (* base case *)
-    | h::t ->
-        match h with
+    | head::tail ->
+        match head with
           | (left, right) ->
-              if left = lhs then (explode right)::(collect_all_RHS lhs t)
-              else (collect_all_RHS lhs t);;
+              if left = lhs then (explode right)::(collect_all_RHS lhs tail)
+              else (collect_all_RHS lhs tail);;
 
 (* test cases for collect_all_RHS with expected results in the comments.
    Uncomment for testing. *)
@@ -141,69 +141,69 @@ collect_all_RHS 'V' anbncmdm_productions;;
 
 (* TODO: Complete (and uncomment) the below recursive function to produce a tuple consisting of a LHS and
    an exploded RHS for each rule in a set of productions. *)
-(* ??? ??? explode_all_RHS productions =
-  match ??? with
-    | ??? -> ???
-    | ???::??? ->
-        match ??? with
-          | (???, ???) ->
-              (???, (??? ???))::(??? ???);; *)
+let rec explode_all_RHS productions =
+  match productions with
+    | [] -> []
+    | head::tail ->
+        match head with
+          | (left, right) ->
+              (left, (explode right))::(explode_all_RHS tail);;
 
 (* test cases for explode_all_RHS with expected results in the comments.
    Uncomment for testing. *)
    
-(* explode_all_RHS anbn_productions;; *)
+explode_all_RHS anbn_productions;;
 (* - : (char * char list) list = [('S', ['a'; 'S'; 'b']); ('S', [])] *)
 
-(* explode_all_RHS anbncmdm_productions;; *)
+explode_all_RHS anbncmdm_productions;;
 (* - : (char * char list) list =
 [('S', ['T'; 'U']); ('T', ['a'; 'T'; 'b']); ('T', []);
  ('U', ['c'; 'U'; 'd']); ('U', [])] *)
 
 (* TODO: Complete (and uncomment) the below recursive functions. They return either
    true or false. *) 
-(* let rec are_lists_equal list1 list2 =
+let rec are_lists_equal list1 list2 =
   match (list1, list2) with
-    | ([],[]) -> ??? (* base case *)
+    | ([],[]) -> true (* base case *)
     | (h1::t1, h2::t2) ->
-        (h1 = h2) && (??? ??? ???)
-    | _ -> false;; *)
+        (h1 = h2) && (are_lists_equal t1 t2)
+    | _ -> false;;
 
-(* let rec is_prefix list1 list2 =
+let rec is_prefix list1 list2 =
   match (list1, list2) with
-    | ([], _) -> ??? (* base case *)
+    | ([], _) -> true (* base case *)
     | (h1::t1, h2::t2) ->
-        (??? ??? ???) && (??? ??? ???)
-    | _ -> ???;; *)
+        (h1 = h2) && (is_prefix t1 t2)
+    | _ -> false;;
 
 (* test cases for the previous two functions with expected results in the
    comments.  Uncomment for testing. *)	
-(* are_lists_equal [] [];; *)
+are_lists_equal [] [];;
 (* true *)
-(* are_lists_equal (explode "abc") (explode "abc");; *)
+are_lists_equal (explode "abc") (explode "abc");;
 (* true *)
-(* are_lists_equal (explode "abc") (explode "abC");; *)
+are_lists_equal (explode "abc") (explode "abC");;
 (* false *)
-(* are_lists_equal (explode "abc") (explode "abd");; *)
+are_lists_equal (explode "abc") (explode "abd");;
 (* false *)
-(* are_lists_equal (explode "abc") (explode "abcd");; *)
+are_lists_equal (explode "abc") (explode "abcd");;
 (* false *)
-(* are_lists_equal (explode "abcd") (explode "abc");; *)
+are_lists_equal (explode "abcd") (explode "abc");;
 (* false *)
 
-(* is_prefix [] [];; *)
+is_prefix [] [];;
 (* true *)
-(* is_prefix [] (explode "abc");; *)
+is_prefix [] (explode "abc");;
 (* true *)
-(* is_prefix (explode "abc") [];; *)
+is_prefix (explode "abc") [];;
 (* false *)
-(* is_prefix (explode "abc") (explode "abcd");; *)
+is_prefix (explode "abc") (explode "abcd");;
 (* true *)
-(* is_prefix (explode "abcd") (explode "abc");; *)
+is_prefix (explode "abcd") (explode "abc");;
 (* false *)
-(* is_prefix (explode "abb") (explode "abcd");; *)
+is_prefix (explode "abb") (explode "abcd");;
 (* false *)
-(* are_lists_equal (explode "aabb") ['a';'a';'b';'b'];; *)
+are_lists_equal (explode "aabb") ['a';'a';'b';'b'];;
 (* true *)
 
 (* This function is used to find the leftmost nonterminal in an
