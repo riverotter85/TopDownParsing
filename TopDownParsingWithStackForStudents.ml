@@ -57,6 +57,10 @@ let belongs_to x the_list = (position x the_list) >= 0;;
 
 (* TODO: Call belongs_to with a valid character and an invalid character of the names(s) and
    the result(s) of your call(s) to explode. *)
+let valid_call = belongs_to 'v' name_list;;
+Printf.printf "Does character \'v\' belong to name? %B\n" valid_call;;
+let invalid_call = belongs_to 'u' name_list;;
+Printf.printf "Does character \'u\' belong to name? %B\n" invalid_call;;
 
 let rec list_length the_list =
   match the_list with
@@ -64,6 +68,8 @@ let rec list_length the_list =
     | _::t -> 1 + (list_length t);;
 
 (* TODO: Call list_length with the result(s) of your call(s) to explode. *)
+let name_length = list_length name_list;;
+Printf.printf "Length of name: %d\n" name_length;;
 
 (*********************)
 (* basic stack ADT in OCaml *)
@@ -89,7 +95,12 @@ let rec push_all the_list s =
 
 (* TODO: Call push_all with a list containing the first, middle, and last name(s) used above
    on an empty list. *)
-   
+let full_name_list = ["Logan"; "Tyler"; "Davis"];;
+let match_results = push_all full_name_list [];;
+Printf.printf "push_all results: ";;
+List.iter (Printf.printf "%s") match_results;;
+Printf.printf "\n";;
+
 let anbn_productions = [('S', "aSb"); ('S', "")];;
 let anbn_grammar = (anbn_productions, ['S'], 'S');;
 
@@ -98,34 +109,34 @@ let anbncmdm_grammar = (anbncmdm_productions, ['S';'T';'U'], 'S');;
 
 (* TODO: Complete (and uncomment) the below recursive function to produce a list of exploded right-hand sides
    for all rules having the given left-hand side in the productions given. *)
-(* let ??? collect_all_RHS lhs productions =
-  match ??? with
-    | ??? -> ??? (* base case *)
-    | ???::??? ->
-        match ??? with
-          | (???, ???) ->
-              if ??? = ??? then (??? ???)::(??? ??? ???)
-              else (??? ??? ???);; *)
+let rec collect_all_RHS lhs productions =
+  match productions with
+    | [] -> [] (* base case *)
+    | h::t ->
+        match h with
+          | (left, right) ->
+              if left = lhs then (explode right)::(collect_all_RHS lhs t)
+              else (collect_all_RHS lhs t);;
 
 (* test cases for collect_all_RHS with expected results in the comments.
    Uncomment for testing. *)
 
-(* collect_all_RHS 'S' anbn_productions;; *)
+collect_all_RHS 'S' anbn_productions;;
 (* - : char list list = [['a'; 'S'; 'b']; []] *)
 
-(* collect_all_RHS 'T' anbn_productions;; *)
+collect_all_RHS 'T' anbn_productions;;
 (* - : char list list = [] *)
 
-(* collect_all_RHS 'S' anbncmdm_productions;; *)
+collect_all_RHS 'S' anbncmdm_productions;;
 (* - : char list list = [['T'; 'U']] *)
 
-(* collect_all_RHS 'T' anbncmdm_productions;; *)
+collect_all_RHS 'T' anbncmdm_productions;;
 (* - : char list list = [['a'; 'T'; 'b']; []] *)
 
-(* collect_all_RHS 'U' anbncmdm_productions;; *)
+collect_all_RHS 'U' anbncmdm_productions;;
 (* - : char list list = [['c'; 'U'; 'd']; []] *)
 
-(* collect_all_RHS 'V' anbncmdm_productions;; *)
+collect_all_RHS 'V' anbncmdm_productions;;
 (* - : char list list = [] *)
 
 (* TODO: Complete (and uncomment) the below recursive function to produce a tuple consisting of a LHS and
