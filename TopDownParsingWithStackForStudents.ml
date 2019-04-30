@@ -16,9 +16,7 @@ let explode s =
 
 (* TODO: Call explode with your name as input.  If you are working in a team, call
    explode once for each team member. *)
-let name_list = explode "Logan Davis";;
-List.iter (Printf.printf "%c") name_list;; (* NOTE: Remove!!! *)
-Printf.printf "\n";; (* Remove!!! *)
+let name_list = explode "Logan Tyler Davis";;
 
 (* converts from list of chars to String *)
 (* single char conversion from
@@ -29,8 +27,7 @@ let rec to_one_string char_list =
     | h::t -> (String.make 1 h)^(to_one_string t);; (* ^ does string concatenation *)
 
 (* TODO: Call to_one_string with the result of your call(s) to explode. *)
-let name_string = to_one_string name_list;;
-Printf.printf "%s\n" name_string;; (* NOTE: Remove!!! *)
+to_one_string name_list;;
 	
 (* tail-recursive linear search in a list: -1 returned if item not found, 0-based otherwise *)
 let position x the_list = 
@@ -42,8 +39,7 @@ let position x the_list =
 
 (* TODO: Call position with the last character of the name(s) and the result(s) of your
    call(s) to explode. *)
-let last_position = position 's' name_list;;
-Printf.printf "Position of last character in name (0-based): %d\n" last_position;;
+position 's' name_list;;
 
 (* membership function *)
 (* let rec belongs_to x list =
@@ -57,10 +53,8 @@ let belongs_to x the_list = (position x the_list) >= 0;;
 
 (* TODO: Call belongs_to with a valid character and an invalid character of the names(s) and
    the result(s) of your call(s) to explode. *)
-let valid_call = belongs_to 'v' name_list;;
-Printf.printf "Does character \'v\' belong to name? %B\n" valid_call;;
-let invalid_call = belongs_to 'u' name_list;;
-Printf.printf "Does character \'u\' belong to name? %B\n" invalid_call;;
+belongs_to 'v' name_list;;
+belongs_to 'u' name_list;;
 
 let rec list_length the_list =
   match the_list with
@@ -68,8 +62,7 @@ let rec list_length the_list =
     | _::t -> 1 + (list_length t);;
 
 (* TODO: Call list_length with the result(s) of your call(s) to explode. *)
-let name_length = list_length name_list;;
-Printf.printf "Length of name: %d\n" name_length;;
+list_length name_list;;
 
 (*********************)
 (* basic stack ADT in OCaml *)
@@ -96,10 +89,7 @@ let rec push_all the_list s =
 (* TODO: Call push_all with a list containing the first, middle, and last name(s) used above
    on an empty list. *)
 let full_name_list = ["Logan"; "Tyler"; "Davis"];;
-let match_results = push_all full_name_list [];;
-Printf.printf "push_all results: ";;
-List.iter (Printf.printf "%s") match_results;;
-Printf.printf "\n";;
+push_all full_name_list [];;
 
 let anbn_productions = [('S', "aSb"); ('S', "")];;
 let anbn_grammar = (anbn_productions, ['S'], 'S');;
@@ -321,7 +311,17 @@ num_productions_explored "aaaaaaabbbbbbbcccddd" anbncmdm_grammar;;
    your last initial and test it for f^3 m^8 e^9 and f^3 m^3 e^2 by
    calling parse, parse_yes_no_only, and num_productions_explored.
    Do this for each team member. *)
-   
+let lit2jd3k_productions = [('S', "FME"); ('F', "lF"); ('F', ""); ('M', "ttM"); ('M', ""); ('E', "dddE"); ('E', "")];;
+let lit2jd3k_grammar = (lit2jd3k_productions, ['S';'F';'M';'E'], 'S');;
+
+parse "lllttttttttddddddddd" lit2jd3k_grammar;;
+parse_yes_no_only "lllttttttttddddddddd" lit2jd3k_grammar;;
+num_productions_explored "lllttttttttddddddddd" lit2jd3k_grammar;;
+
+parse "llltttdd" lit2jd3k_grammar;;
+parse_yes_no_only "llltttdd" lit2jd3k_grammar;;
+num_productions_explored "llltttdd" lit2jd3k_grammar;;
+
 
 
 
