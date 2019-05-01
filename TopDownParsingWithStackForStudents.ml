@@ -2,7 +2,7 @@
    Author:	Martha Kosa
    Date: 	04.06.2019 *)
    
-(* Modifications by Logan Davis (and YYY if you have a partner) *)
+(* Modifications by Logan Davis & Eric Cabarlo *)
 
 (*********************)
 (* list utility functions *)
@@ -16,7 +16,8 @@ let explode s =
 
 (* TODO: Call explode with your name as input.  If you are working in a team, call
    explode once for each team member. *)
-let name_list = explode "Logan Tyler Davis";;
+let name_list1 = explode "Logan Tyler Davis";;
+let name_list2 = explode "Eric Ray Cabarlo";;
 
 (* converts from list of chars to String *)
 (* single char conversion from
@@ -27,7 +28,8 @@ let rec to_one_string char_list =
     | h::t -> (String.make 1 h)^(to_one_string t);; (* ^ does string concatenation *)
 
 (* TODO: Call to_one_string with the result of your call(s) to explode. *)
-to_one_string name_list;;
+to_one_string name_list1;;
+to_one_string name_list2;;
 	
 (* tail-recursive linear search in a list: -1 returned if item not found, 0-based otherwise *)
 let position x the_list = 
@@ -39,7 +41,8 @@ let position x the_list =
 
 (* TODO: Call position with the last character of the name(s) and the result(s) of your
    call(s) to explode. *)
-position 's' name_list;;
+position 's' name_list1;;
+position 'o' name_list2;;
 
 (* membership function *)
 (* let rec belongs_to x list =
@@ -53,8 +56,10 @@ let belongs_to x the_list = (position x the_list) >= 0;;
 
 (* TODO: Call belongs_to with a valid character and an invalid character of the names(s) and
    the result(s) of your call(s) to explode. *)
-belongs_to 'v' name_list;;
-belongs_to 'u' name_list;;
+belongs_to 'v' name_list1;;
+belongs_to 'u' name_list1;;
+belongs_to 'i' name_list2;;
+belongs_to 'z' name_list2;;
 
 let rec list_length the_list =
   match the_list with
@@ -62,7 +67,8 @@ let rec list_length the_list =
     | _::t -> 1 + (list_length t);;
 
 (* TODO: Call list_length with the result(s) of your call(s) to explode. *)
-list_length name_list;;
+list_length name_list1;;
+list_length name_list2;;
 
 (*********************)
 (* basic stack ADT in OCaml *)
@@ -88,8 +94,10 @@ let rec push_all the_list s =
 
 (* TODO: Call push_all with a list containing the first, middle, and last name(s) used above
    on an empty list. *)
-let full_name_list = ["Logan"; "Tyler"; "Davis"];;
-push_all full_name_list [];;
+let full_name_list1 = ["Logan"; "Tyler"; "Davis"];;
+push_all full_name_list1 [];;
+let full_name_list2 = ["Eric"; "Ray"; "Cabarlo"];;
+push_all full_name_list2 [];;
 
 let anbn_productions = [('S', "aSb"); ('S', "")];;
 let anbn_grammar = (anbn_productions, ['S'], 'S');;
@@ -321,6 +329,17 @@ num_productions_explored "lllttttttttddddddddd" lit2jd3k_grammar;;
 parse "llltttdd" lit2jd3k_grammar;;
 parse_yes_no_only "llltttdd" lit2jd3k_grammar;;
 num_productions_explored "llltttdd" lit2jd3k_grammar;;
+
+let eir2jc3k_productions = [('S', "FME"); ('F', "eF"); ('F', ""); ('M', "rrM"); ('M', ""); ('E', "cccE"); ('E', "")];;
+let eir2jc3k_grammar = (eir2jc3k_productions, ['S';'F';'M';'E'], 'S');;
+
+parse "eeerrrrrrrrccccccccc" eir2jc3k_grammar;;
+parse_yes_no_only "eeerrrrrrrrccccccccc" eir2jc3k_grammar;;
+num_productions_explored "eeerrrrrrrrccccccccc" eir2jc3k_grammar;;
+
+parse "eeerrrcc" eir2jc3k_grammar;;
+parse_yes_no_only "eeerrrcc" eir2jc3k_grammar;;
+num_productions_explored "eeerrrcc" eir2jc3k_grammar;;
 
 
 
