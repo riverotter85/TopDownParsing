@@ -246,7 +246,7 @@ let rec breadth_first_parse p rules nonterminals explored stack =
                 (split [] sentential_form nonterminals) in
                 match leftmost with
                   | [left] ->
-                      if (is_prefix leftmost p_as_list) then
+                      if (is_prefix before p_as_list) then
                         let next_level = replace_LHS_by_RHS before left after rules
                         in breadth_first_parse p rules nonterminals (explored@[sf_string]) (push_all next_level tail)
                       else
